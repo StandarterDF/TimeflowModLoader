@@ -1,0 +1,19 @@
+# Build output
+bin/
+obj/
+*.user
+
+# Downloaded third-party dependencies (restore with tools/setup.ps1)
+vendor/
+
+# Generated decompilation dumps / reference material
+reference/
+
+# IDE
+.vs/
+.idea/
+*.suo
+
+# Local runtime artifacts
+*.log
+output_log.txt

@@ -1,0 +1,26 @@
+<Project>
+  <!--
+    Shared MSBuild configuration for the whole Timeflow ModLoader repository.
+    Everything is resolved relative to this file so the repo stays self-contained.
+
+    Override on the command line if your game is elsewhere, e.g.:
+      dotnet build -p:GameRoot="D:\Steam\steamapps\common\Timeflow"
+  -->
+  <PropertyGroup>
+    <GameRoot Condition="'$(GameRoot)' == ''">$(MSBuildThisFileDirectory)..\Timeflow</GameRoot>
+    <GameRoot>$([System.IO.Path]::GetFullPath('$(GameRoot)'))</GameRoot>
+    <GameManagedDir Condition="'$(GameManagedDir)' == ''">$(GameRoot)\Timeflow_Data\Managed</GameManagedDir>
+    <VendorDir>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)vendor'))</VendorDir>
+
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <DebugType>portable</DebugType>
+    <Deterministic>true</Deterministic>
+    <!-- Flat output folders make deployment / referencing much easier. -->
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+</Project>

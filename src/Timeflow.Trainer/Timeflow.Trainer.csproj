@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Timeflow.Trainer</AssemblyName>
+    <RootNamespace>Timeflow.Trainer</RootNamespace>
+    <Version>1.0.0</Version>
+    <!-- Mods are dropped into <GameRoot>\Mods after building. -->
+    <ModDeployDir>$(GameRoot)\Mods</ModDeployDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Timeflow.ModLoader\Timeflow.ModLoader.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+
+    <Reference Include="0Harmony">
+      <HintPath>$(VendorDir)\harmonyx\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(GameManagedDir)\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(GameManagedDir)\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <!-- The game's own code, so patches can reference game types. -->
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(GameManagedDir)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Convenience: copy the finished mod into the game's Mods folder. -->
+  <Target Name="DeployMod" AfterTargets="Build">
+    <MakeDir Directories="$(ModDeployDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModDeployDir)" />
+  </Target>
+
+</Project>
